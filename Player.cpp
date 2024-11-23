@@ -22,12 +22,44 @@ objPos Player::getPlayerPos(objPos &returnPos) const
 
 void Player::updatePlayerDir()
 {
-        // PPA3 input processing logic          
+        // PPA3 input processing logic
+        char input = mainGameMechsRef->getInput();
+
+        if(input != 0)  // if not null character
+    {
+        switch(input)
+        {                      
+            case 'w':
+                if (myDir == LEFT ||myDir == RIGHT){ 
+                    myDir = UP;
+                }
+                break;
+
+            case 'a':
+                if (myDir == UP ||myDir == DOWN){
+                    myDir = LEFT;
+                }
+                break;
+
+            case 's':
+                if (myDir == LEFT ||myDir == RIGHT){
+                    myDir = DOWN;
+                }
+                break;
+
+            case 'd':
+                if (myDir == UP ||myDir == DOWN){
+                    myDir = RIGHT;
+                }
+                break;  
+        }
+    }        
 }
 
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    
 }
 
 // More methods to be added

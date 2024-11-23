@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -16,9 +17,13 @@ void LoopDelay(void);
 void CleanUp(void);
 
 char input;
+
+//iteration 0 - will be removed upon completion of iteration 1
 objPos arb1(4, 4, 'w');
 objPos arb2(2, 4, 'q');
 objPos arb3(7, 8, 'a');
+
+Player player();
 
 int main(void)
 {
