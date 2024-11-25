@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
+#include "GameMechs.h"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ objPos arb1(4, 4, 'w');
 objPos arb2(2, 4, 'q');
 objPos arb3(7, 8, 'a');
 
-Player player();
+
 
 int main(void)
 {
