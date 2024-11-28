@@ -7,6 +7,9 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
+    playerPos.pos->x = 4;
+    playerPos.pos-> y = 6;
+    playerPos.symbol = '*';
 }
 
 
@@ -15,9 +18,10 @@ Player::~Player()
     // delete any heap members here
 }
 
-objPos Player::getPlayerPos(objPos &returnPos) const
+objPos Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
+    return playerPos;
 }
 
 void Player::updatePlayerDir()
@@ -30,25 +34,25 @@ void Player::updatePlayerDir()
         switch(input)
         {                      
             case 'w':
-                if (myDir == LEFT ||myDir == RIGHT){ 
+                if (myDir == LEFT ||myDir == RIGHT ||myDir == STOP){ 
                     myDir = UP;
                 }
                 break;
 
             case 'a':
-                if (myDir == UP ||myDir == DOWN){
+                if (myDir == UP ||myDir == DOWN ||myDir == STOP){
                     myDir = LEFT;
                 }
                 break;
 
             case 's':
-                if (myDir == LEFT ||myDir == RIGHT){
+                if (myDir == LEFT ||myDir == RIGHT ||myDir == STOP){
                     myDir = DOWN;
                 }
                 break;
 
             case 'd':
-                if (myDir == UP ||myDir == DOWN){
+                if (myDir == UP ||myDir == DOWN ||myDir == STOP){
                     myDir = RIGHT;
                 }
                 break;  

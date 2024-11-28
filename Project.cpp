@@ -8,8 +8,6 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-bool exitFlag;
-
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -17,21 +15,20 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-char input;
-
 //iteration 0 - will be removed upon completion of iteration 1
 objPos arb1(4, 4, 'w');
 objPos arb2(2, 4, 'q');
 objPos arb3(7, 8, 'a');
 
-
+Player *playerPtr;
+GameMechs  *mechPtr;
 
 int main(void)
 {
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(mechPtr->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -49,26 +46,29 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    exitFlag = false;
+    mechPtr = new GameMechs();
+    playerPtr = new Player(mechPtr);
 }
 
 void GetInput(void)
 {
    if (MacUILib_hasChar()){
-        input = MacUILib_getChar();
+        mechPtr->setInput(MacUILib_getChar());
     }
 }
 
 void RunLogic(void)
 {
-    if(input != 0)  // if not null character
+    if(mechPtr->getInput() != 0)  // if not null character
     {
-        switch(input)
+        switch(mechPtr->getInput())
         {                      
             case 27:  // char 27 is the escape key
-                exitFlag = 1;
+                mechPtr->setExitTrue();
                 break;
         }
+        playerPtr->updatePlayerDir();
+        playerPtr->movePlayer();
     }
 }
 
@@ -83,14 +83,8 @@ void DrawScreen(void)
             if (i == 0 || i == 9 || j == 0 || j == 19) {
                 MacUILib_printf("#");
             }
-            else if (i == arb1.pos->x && j == arb1.pos->y) {
-                MacUILib_printf("%c", arb1.symbol);
-            }
-            else if (i == arb2.pos->x && j == arb2.pos->y) {
-                MacUILib_printf("%c", arb2.symbol);
-            }
-            else if (i == arb3.pos->x && j == arb3.pos->y) {
-                MacUILib_printf("%c", arb3.symbol);
+            else if (i == playerPtr->getPlayerPos().pos->y && j == playerPtr->getPlayerPos().pos->x) {
+                MacUILib_printf("%c", playerPtr->getPlayerPos().symbol);
             }
             else {
                 MacUILib_printf(" ");
