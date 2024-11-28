@@ -37,11 +37,6 @@ bool GameMechs::getLoseFlagStatus() const
 
 char GameMechs::getInput() const
 {
-    if (MacUILib_hasChar())
-    {
-        input = MacUILib_getChar();
-    }
-    
     return input;
 }
 
