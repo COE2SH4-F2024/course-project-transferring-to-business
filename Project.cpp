@@ -86,6 +86,11 @@ void DrawScreen(void)
             else if (i == playerPtr->getPlayerPos().pos->y && j == playerPtr->getPlayerPos().pos->x) {
                 MacUILib_printf("%c", playerPtr->getPlayerPos().symbol);
             }
+            else if (i == mechPtr->getFoodPos().pos->y && j == mechPtr->getFoodPos().pos->x)
+            {
+                MacUILib_printf("%c",mechPtr->getFoodPos().symbol);
+            }
+            
             else {
                 MacUILib_printf(" ");
             }
