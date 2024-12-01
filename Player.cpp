@@ -31,7 +31,7 @@ void Player::updatePlayerDir()
         // PPA3 input processing logic
         char input = mainGameMechsRef->getInput();
 
-        if(input != 0)  // if not null character
+        if(input != 0 || input != 'w' || input != 'a' || input != 's' || input != 'd')  // if not null character
     {
         switch(input)
         {                      
@@ -59,7 +59,8 @@ void Player::updatePlayerDir()
                 }
                 break;  
         }
-    }        
+    }
+    //mainGameMechsRef->clearInput();        
 }
 
 void Player::movePlayer()

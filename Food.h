@@ -13,18 +13,16 @@ class Food
 {
 private:
     objPos foodPos;
-
-    int boardX;
-    int boardY;
+    GameMechs* mainGameMechsRef;
 
 public:
-    Food(int boardX, int boardY);
-    Food(const Food& other);
+
+    Food(GameMechs* thisGMRef);
     ~Food();
-    Food& operator=(const Food& other);
-    
-    void generateFood(const objPos& block0ff);
+
+    void generateFood(objPos blockOff);
     objPos getFoodPos() const;
+
 };
 
 

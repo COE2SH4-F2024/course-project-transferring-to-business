@@ -1,37 +1,37 @@
 #include "Food.h"
 #include <stdlib.h>
 #include <cstdlib>
+#include <time.h>
 
-Food::Food(int boardX, int boardY) : boardSizeX(boardX), boardSizeY(boardY) 
+using namespace std;
+
+Food::Food(GameMechs* thisGMRef)
 {
-    foodPos = objPos(0,0,'*');
+    srand(time(NULL));
+    foodPos = objPos(3,3,'$');
+    mainGameMechsRef = thisGMRef;
 }
 
-Food::~Food()
-{}
+Food::~Food() {
 
-Food::Food(const Food& other) : boardSizeX(other.boardSizeX), boardSizeY(other.boardSizeY),foodPos(other.foodPos)
-{}
 
-Food& Food::operator=(const Food& other)
+}
+
+
+
+void Food::generateFood(objPos blockOff)
 {
-    if (this != &other)
-    {
-        boardSizeX = other.boardSizeX;
-        boardSizeY = other.boardSizeY;
+    char input = mainGameMechsRef->getInput();
+    if (input == 'p') {
+        do
+        {
+            int randomX = rand() % (mainGameMechsRef->getBoardSizeX() - 2) +1;
+            int randomY = rand() % (mainGameMechsRef->getBoardSizeY() - 2) + 1;
+            foodPos.setObjPos(randomX, randomY, 'p');
+        } while (foodPos.isPosEqual(&blockOff));
 
+        mainGameMechsRef->clearInput();
     }
-    
-}
-void Food::generateFood(const objPos& block0ff)
-{
-    do
-    {
-        int randomX = rand() % (boardSizeX - 2) +1;
-        int randomY = rand() % (boardSizeY - 2) + 1;
-        foodPos.setObjPos(randomX, randomY, '*');
-    } while (foodPos.isPosEqual(&block0ff));
-    
 }
 
 objPos Food::getFoodPos() const

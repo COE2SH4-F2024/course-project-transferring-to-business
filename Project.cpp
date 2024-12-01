@@ -3,6 +3,8 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include "Food.h"
+#include <time.h>
 
 using namespace std;
 
@@ -20,12 +22,14 @@ objPos arb1(4, 4, 'w');
 objPos arb2(2, 4, 'q');
 objPos arb3(7, 8, 'a');
 
+
 Player *playerPtr;
 GameMechs  *mechPtr;
+Food *foodPtr;
+
 
 int main(void)
 {
-
     Initialize();
 
     while(mechPtr->getExitFlagStatus() == false)  
@@ -48,12 +52,7 @@ void Initialize(void)
 
     mechPtr = new GameMechs();
     playerPtr = new Player(mechPtr);
-    
-    objPos temp;
-    temp.pos->x = 5;
-    temp.pos->y = 5;
-    temp.symbol = '$';
-    playerPtr->getPlayerPos()->insertTail(temp);
+    foodPtr = new Food(mechPtr);
 }
 
 void GetInput(void)
@@ -76,6 +75,7 @@ void RunLogic(void)
         playerPtr->updatePlayerDir();
         playerPtr->movePlayer();
     }
+    foodPtr->generateFood((playerPtr->getPlayerPos()->getHeadElement()));
 }
 
 void DrawScreen(void)
@@ -100,18 +100,16 @@ void DrawScreen(void)
                 }
             }
             if(playerDrawn){}
+
+            else if (i == foodPtr->getFoodPos().pos->y && j == foodPtr->getFoodPos().pos->x) {
+                MacUILib_printf("%c", foodPtr->getFoodPos().symbol);
+
+            }
             
             else if (i == 0 || i == 9 || j == 0 || j == 19) {
                 MacUILib_printf("#");
             }
-            else if (i == playerPtr->getPlayerPos().pos->y && j == playerPtr->getPlayerPos().pos->x) {
-                MacUILib_printf("%c", playerPtr->getPlayerPos().symbol);
-            }
-            else if (i == mechPtr->getFoodPos().pos->y && j == mechPtr->getFoodPos().pos->x)
-            {
-                MacUILib_printf("%c",mechPtr->getFoodPos().symbol);
-            }
-            
+
             else {
                     MacUILib_printf(" ");
                 }
@@ -119,6 +117,11 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
+
+    MacUILib_printf("DELETE ALL HEAP MEMBERS!!!!!!!!!!\nFIX PASS-BY-VALUE ISSUE!!!!!!!!!!!\n");
+    MacUILib_printf("\nRANDOM NUMBER X: %d", foodPtr->getFoodPos().pos->x);
+    MacUILib_printf("\nRANDOM NUMBER Y: %d", foodPtr->getFoodPos().pos->y);
+    MacUILib_printf("\nINPUT VALUE: %c", mechPtr->getInput());
 }
 
 
