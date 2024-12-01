@@ -48,6 +48,12 @@ void Initialize(void)
 
     mechPtr = new GameMechs();
     playerPtr = new Player(mechPtr);
+    
+    objPos temp;
+    temp.pos->x = 5;
+    temp.pos->y = 5;
+    temp.symbol = '$';
+    playerPtr->getPlayerPos()->insertTail(temp);
 }
 
 void GetInput(void)
@@ -77,24 +83,38 @@ void DrawScreen(void)
     MacUILib_clearScreen();
     int i;
     int j;
+    int k;
+    
+    bool playerDrawn;
 
     for (i=0; i <= 9; i++) {
         for (j=0; j <= 19; j++){
-            if (i == 0 || i == 9 || j == 0 || j == 19) {
+            
+            playerDrawn = false;
+
+            for (k = 0; k < playerPtr->getPlayerPos()->getSize(); k++) {
+                if (i == playerPtr->getPlayerPos()->getElement(k).pos->y && j == playerPtr->getPlayerPos()->getElement(k).pos->x) {
+                    MacUILib_printf("%c", playerPtr->getPlayerPos()->getElement(k).symbol);
+                    //break;
+                    playerDrawn = true;
+                }
+            }
+            if(playerDrawn){}
+            
+            else if (i == 0 || i == 9 || j == 0 || j == 19) {
                 MacUILib_printf("#");
             }
-            else if (i == playerPtr->getPlayerPos().pos->y && j == playerPtr->getPlayerPos().pos->x) {
-                MacUILib_printf("%c", playerPtr->getPlayerPos().symbol);
-            }
             else {
-                MacUILib_printf(" ");
-            }
+                    MacUILib_printf(" ");
+                }
+
         }
-    
         MacUILib_printf("\n");
     }
-  
 }
+
+
+
 
 void LoopDelay(void)
 {

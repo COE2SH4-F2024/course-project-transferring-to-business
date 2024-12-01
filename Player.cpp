@@ -7,9 +7,11 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.pos->x = 4;
-    playerPos.pos-> y = 6;
-    playerPos.symbol = '*';
+    playerPosListPtr = new objPosArrayList;
+    new_head.pos->x = 4;
+    new_head.pos-> y = 6;
+    new_head.symbol = '*';  
+    playerPosListPtr->insertHead(new_head);
 }
 
 
@@ -18,10 +20,10 @@ Player::~Player()
     // delete any heap members here
 }
 
-objPos Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    return playerPos;
+    return playerPosListPtr;
 }
 
 void Player::updatePlayerDir()
@@ -65,35 +67,51 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
     switch(myDir) {
         case 0:
-            if (!(playerPos.pos->y <= 1)) {
-                playerPos.pos->y--;
+            if (!(playerPosListPtr->getHeadElement().pos->y <= 1)) {
+                new_head.pos->y--;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             else {
-                playerPos.pos->y = 8;
+                new_head.pos->y = 8;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             break;
         case 1:
-            if (!(playerPos.pos->y >= 8)) {
-                playerPos.pos->y++;
+            if (!(playerPosListPtr->getHeadElement().pos->y >= 8)) {
+                new_head.pos->y++;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             else {
-                playerPos.pos->y = 1;
+                new_head.pos->y = 1;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             break;
         case 2:
-            if (!(playerPos.pos->x <= 1)) {
-                playerPos.pos->x--;
+            if (!(playerPosListPtr->getHeadElement().pos->x <= 1)) {
+                new_head.pos->x--;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             else {
-                playerPos.pos->x = 18;
+                new_head.pos->x = 18;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             break;
         case 3:
-            if (!(playerPos.pos->x >= 18)) {
-                playerPos.pos->x++;
+            if (!(playerPosListPtr->getHeadElement().pos->x >= 18)) {
+                new_head.pos->x++;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             else {
-                playerPos.pos->x = 1;
+                new_head.pos->x = 1;
+                playerPosListPtr->insertHead(new_head);
+                playerPosListPtr->removeTail();
             }
             break;
     }
@@ -101,3 +119,9 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+
+//Debugging purposes
+objPos Player::getnew_head() const {
+    return new_head;
+
+}
