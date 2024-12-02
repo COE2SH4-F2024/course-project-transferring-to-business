@@ -80,7 +80,7 @@ void Player::movePlayer()
                 new_head.pos->y--;
             }
             else {
-                new_head.pos->y = 8;
+                new_head.pos->y = (mainGameMechsRef->getBoardSizeY()-2);
             }
             break;
         case DOWN:
@@ -96,7 +96,7 @@ void Player::movePlayer()
                 new_head.pos->x--;
             }
             else {
-                new_head.pos->x = 18;
+                new_head.pos->x = (mainGameMechsRef->getBoardSizeX()-2);
             }
             break;
         case RIGHT:

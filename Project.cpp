@@ -87,8 +87,8 @@ void DrawScreen(void)
 
     bool playerDrawn;
 
-    for (i=0; i <= 9; i++) {
-        for (j=0; j <= 19; j++){
+    for (i=0; i <= (mechPtr->getBoardSizeY() - 1); i++) {
+        for (j=0; j <= (mechPtr->getBoardSizeX() - 1); j++){
             
             playerDrawn = false;
 
@@ -106,7 +106,7 @@ void DrawScreen(void)
 
             }
             
-            else if (i == 0 || i == 9 || j == 0 || j == 19) {
+            else if (i == 0 || i == (mechPtr->getBoardSizeY() - 1) || j == 0 || j == (mechPtr->getBoardSizeX() - 1)) {
                 MacUILib_printf("#");
             }
 
@@ -118,13 +118,7 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
-    MacUILib_printf("DELETE ALL HEAP MEMBERS!!!!!!!!!!\nFIX PASS-BY-VALUE ISSUE!!!!!!!!!!!\nCOMMENTS!!!!!!!!!!!!!!\nIMPLEMENTGAMEBOARDMEMBERS");
-    MacUILib_printf("\nRANDOM NUMBER X: %d", foodPtr->getFoodPos().pos->x);
-    MacUILib_printf("\nRANDOM NUMBER Y: %d", foodPtr->getFoodPos().pos->y);
-    MacUILib_printf("\nINPUT VALUE: %c\n", mechPtr->getInput());
-    MacUILib_printf("LIST SIZE: %d\n", playerPtr->getPlayerPos()->getSize());
-    MacUILib_printf("TAIL OBJPOS: %d, %d,", playerPtr->getPlayerPos()->getTailElement().pos->x, playerPtr->getPlayerPos()->getTailElement().pos->y);
-    MacUILib_printf("SCORE: %d\n", mechPtr->getScore());
+    MacUILib_printf("\nCOMMENTS!!!!!!!!!!!!!!\nIMPLEMENTGAMEBOARDMEMBERS");
     MacUILib_printf("NUMBER OF SEGMENTS PRINTED: %d\n", k);
 }
 
@@ -140,7 +134,8 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen(); 
-    printf("GAME OVER!!");
+    if (mechPtr->getLoseFlagStatus()) 
+        printf("GAME OVER!!");
         
     delete playerPtr;
     delete foodPtr;
