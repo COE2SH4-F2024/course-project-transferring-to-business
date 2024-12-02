@@ -8,7 +8,7 @@ Player::Player(GameMechs* thisGMRef, Food* foodRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPosListPtr = new objPosArrayList;
+    playerPosListPtr = new objPosArrayList();
     new_head.pos->x = 4;
     new_head.pos-> y = 6;
     new_head.symbol = '*';  
@@ -138,10 +138,12 @@ bool Player::checkFoodCollision() {
     tempFoodPos->setObjPos((foodPtr->getFoodPos()));
 
     if (playerPosListPtr->getHeadElement().isPosEqual(tempFoodPos)) {
+        delete tempFoodPos;
         return true;
     }
 
     else {
+        delete tempFoodPos;
         return false;
     }
 }

@@ -30,16 +30,15 @@ objPos::objPos(const objPos &other) {
 objPos& objPos::operator=(const objPos &other) {
     if (this != &other) {
         symbol = other.symbol;
-        pos =  new Pos;
-        pos->x =  other.pos->x;
-        pos->y =  other.pos->y;
+        this->pos->x =  other.pos->x;
+        this->pos->y =  other.pos->y;
     }
     return *this;
 
 }
 
 objPos::~objPos() {
-    delete pos;
+    delete[] pos;
 }
 
 void objPos::setObjPos(objPos o)
