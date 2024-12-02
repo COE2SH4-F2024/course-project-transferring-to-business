@@ -141,9 +141,7 @@ void CleanUp(void)
 {
     MacUILib_clearScreen(); 
     printf("GAME OVER!!");
-       
-    playerPtr->~Player();
-    foodPtr->~Food();
+        
     delete playerPtr;
     delete foodPtr;
     delete mechPtr;
