@@ -13,10 +13,7 @@ Player::Player(GameMechs* thisGMRef, Food* foodRef)
     new_head.pos-> y = 6;
     new_head.symbol = '*';  
     playerPosListPtr->insertHead(new_head);
-    new_head.setObjPos(5, 6, '*');
-    playerPosListPtr->insertHead(new_head);
-    new_head.setObjPos(6, 6, '*');
-    playerPosListPtr->insertHead(new_head);
+    
 
     
 }
@@ -25,6 +22,8 @@ Player::Player(GameMechs* thisGMRef, Food* foodRef)
 Player::~Player()
 {
     // delete any heap members here
+    delete[] playerPosListPtr;
+    delete &new_head;
 }
 
 objPosArrayList* Player::getPlayerPos() const
