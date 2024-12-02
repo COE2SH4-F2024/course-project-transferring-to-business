@@ -18,12 +18,6 @@ void LoopDelay(void);
 void CleanUp(void);
 
 
-//iteration 0 - will be removed upon completion of iteration 1
-objPos arb1(4, 4, 'w');
-objPos arb2(2, 4, 'q');
-objPos arb3(7, 8, 'a');
-
-
 Player *playerPtr;
 GameMechs  *mechPtr;
 Food *foodPtr;
@@ -78,10 +72,10 @@ void RunLogic(void)
         playerPtr->movePlayer();
     }
 
-    if (mechPtr->getLoseFlagStatus()) {
-        MacUILib_clearScreen();
-        MacUILib_printf("GAME OVER!");
-    }
+    // if (mechPtr->getLoseFlagStatus()) {
+    //     MacUILib_clearScreen();
+    //     MacUILib_printf("GAME OVER!");
+    // }
 }
 
 void DrawScreen(void)
@@ -146,6 +140,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen(); 
+    printf("GAME OVER!!");
        
     playerPtr->~Player();
     foodPtr->~Food();
