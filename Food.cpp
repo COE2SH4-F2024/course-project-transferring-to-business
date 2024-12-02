@@ -13,7 +13,7 @@ Food::Food(GameMechs* thisGMRef)
 }
 
 Food::~Food() {
-    delete &foodPos;
+
 }
 
 

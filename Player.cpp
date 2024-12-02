@@ -22,8 +22,7 @@ Player::Player(GameMechs* thisGMRef, Food* foodRef)
 Player::~Player()
 {
     // delete any heap members here
-    delete[] playerPosListPtr;
-    delete &new_head;
+    delete playerPosListPtr;
 }
 
 objPosArrayList* Player::getPlayerPos() const
