@@ -1,9 +1,10 @@
 #include "Player.h"
+#include "Food.h"
 
-
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* foodRef)
 {
     mainGameMechsRef = thisGMRef;
+    foodPtr = foodRef;
     myDir = STOP;
 
     // more actions to be included
@@ -12,6 +13,12 @@ Player::Player(GameMechs* thisGMRef)
     new_head.pos-> y = 6;
     new_head.symbol = '*';  
     playerPosListPtr->insertHead(new_head);
+    new_head.setObjPos(5, 6, '*');
+    playerPosListPtr->insertHead(new_head);
+    new_head.setObjPos(6, 6, '*');
+    playerPosListPtr->insertHead(new_head);
+
+    
 }
 
 
@@ -66,55 +73,55 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    new_head.setObjPos(playerPosListPtr->getHeadElement());
+    new_head.symbol = '*';
+    
     switch(myDir) {
-        case 0:
+        case UP:
             if (!(playerPosListPtr->getHeadElement().pos->y <= 1)) {
                 new_head.pos->y--;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             else {
                 new_head.pos->y = 8;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             break;
-        case 1:
+        case DOWN:
             if (!(playerPosListPtr->getHeadElement().pos->y >= 8)) {
                 new_head.pos->y++;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             else {
                 new_head.pos->y = 1;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             break;
-        case 2:
+        case LEFT:
             if (!(playerPosListPtr->getHeadElement().pos->x <= 1)) {
                 new_head.pos->x--;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             else {
                 new_head.pos->x = 18;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             break;
-        case 3:
+        case RIGHT:
             if (!(playerPosListPtr->getHeadElement().pos->x >= 18)) {
                 new_head.pos->x++;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             else {
                 new_head.pos->x = 1;
-                playerPosListPtr->insertHead(new_head);
-                playerPosListPtr->removeTail();
             }
             break;
+        
+    }
+    
+    if (checkFoodCollision()) {
+        increasePlayerLength();
+    }
+    else if (checkSelfCollision()) {
+        mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseFlag();
+    }
+    else {
+        playerPosListPtr->insertHead(new_head);
+        playerPosListPtr->removeTail();
     }
     
 }
@@ -125,4 +132,35 @@ void Player::movePlayer()
 objPos Player::getnew_head() const {
     return new_head;
 
+}
+
+bool Player::checkFoodCollision() {
+
+    objPos* tempFoodPos= new objPos;
+    tempFoodPos->setObjPos((foodPtr->getFoodPos()));
+
+    if (playerPosListPtr->getHeadElement().isPosEqual(tempFoodPos)) {
+        return true;
+    }
+
+    else {
+        return false;
+    }
+}
+
+void Player::increasePlayerLength() {
+    playerPosListPtr->insertHead(new_head);
+    foodPtr->generateFood(playerPosListPtr);
+    mainGameMechsRef->incrementScore();
+}
+
+bool Player::checkSelfCollision() {
+    objPos tempPos;
+    for (int i = 1; i < playerPosListPtr->getSize(); i++) {
+        tempPos = playerPosListPtr->getElement(i);
+        if (playerPosListPtr->getHeadElement().isPosEqual(&tempPos)) {
+            return true;
+        }
+    }
+    return false;
 }

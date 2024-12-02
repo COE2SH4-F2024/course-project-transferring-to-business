@@ -24,8 +24,8 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if (listSize != arrayCapacity) {
         listSize++;
-        for (int i =0; i < listSize;i++) {
-            aList[i+1] = aList[i]; 
+        for (int i =listSize; i > 0;i--) {
+            aList[i] = aList[i-1]; 
 
     }  
 

@@ -20,7 +20,7 @@ public:
     Food(GameMechs* thisGMRef);
     ~Food();
 
-    void generateFood(objPos blockOff);
+    void generateFood(objPosArrayList* blockOff);
     objPos getFoodPos() const;
 
 };

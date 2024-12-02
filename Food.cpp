@@ -19,20 +19,23 @@ Food::~Food() {
 
 
 
-void Food::generateFood(objPos blockOff)
+void Food::generateFood(objPosArrayList* blockOff)
 {
     char input = mainGameMechsRef->getInput();
-    if (input == 'p') {
+    int i;
+    objPos tempPos;
+    for (i = 0; i < blockOff->getSize(); i++) {
         do
         {
             int randomX = rand() % (mainGameMechsRef->getBoardSizeX() - 2) +1;
             int randomY = rand() % (mainGameMechsRef->getBoardSizeY() - 2) + 1;
-            foodPos.setObjPos(randomX, randomY, 'p');
-        } while (foodPos.isPosEqual(&blockOff));
-
-        mainGameMechsRef->clearInput();
+            foodPos.setObjPos(randomX, randomY, '$');
+            tempPos = (blockOff->getElement(i));
+        } while (foodPos.isPosEqual(&tempPos));
     }
+
 }
+
 
 objPos Food::getFoodPos() const
 {
