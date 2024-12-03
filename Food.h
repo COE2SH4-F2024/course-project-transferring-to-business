@@ -12,16 +12,16 @@
 class Food
 {
 private:
-    objPos foodPos;
-    GameMechs* mainGameMechsRef;
+    objPos foodPos; //current positon of food on board
+    GameMechs* mainGameMechsRef; //pointer to GameMechs object, allowing access to initialized game mechanics
 
 public:
 
-    Food(GameMechs* thisGMRef);
-    ~Food();
+    Food(GameMechs* thisGMRef); //constructor with food position initialization and reference to game mechanics
+    ~Food(); //not needed but still implemented
 
-    void generateFood(objPosArrayList* blockOff);
-    objPos getFoodPos() const;
+    void generateFood(objPosArrayList* blockOff); //creates new random position for food while avoiding blocked positions
+    objPos getFoodPos() const; //food position getter
 
 };
 

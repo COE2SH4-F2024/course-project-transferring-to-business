@@ -11,27 +11,25 @@ typedef struct
 class objPos
 {
     public:
-        Pos* pos;        
-        char symbol;
+        Pos* pos; //pointer to position of object, stored in dynamic memory  
+        char symbol;  
 
-        objPos();
-        objPos(int xPos, int yPos, char sym);
-        objPos(const objPos &other);
-        objPos& operator=(const objPos &other);
-        ~objPos();
+        objPos(); //default constructor
+        objPos(int xPos, int yPos, char sym); //additional constructor
+        objPos(const objPos &other); //copy constructor
+        objPos& operator=(const objPos &other); //assignment operator constructor
+        ~objPos(); //destructor
+
 
         
-        // Respect the rule of six / minimum four
-        // [TODO] Implement the missing special member functions to meet the minimum four rule
-        
-        void setObjPos(objPos o);        
-        void setObjPos(int xPos, int yPos, char sym);  
+        void setObjPos(objPos o); //updates position and symbol through objPos      
+        void setObjPos(int xPos, int yPos, char sym); 
 
-        objPos getObjPos() const;
-        char getSymbol() const;
-        char getSymbolIfPosEqual(const objPos* refPos) const;
+        objPos getObjPos() const; //deep copy, returns new objPos object with same position and symbol
+        char getSymbol() const; 
+        char getSymbolIfPosEqual(const objPos* refPos) const; //checks if position matching reference position 
         
-        bool isPosEqual(const objPos* refPos) const;
+        bool isPosEqual(const objPos* refPos) const; //compares coordinates of object with reference position
 };
 
 #endif

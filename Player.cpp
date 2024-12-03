@@ -3,37 +3,32 @@
 
 Player::Player(GameMechs* thisGMRef, Food* foodRef)
 {
-    mainGameMechsRef = thisGMRef;
-    foodPtr = foodRef;
-    myDir = STOP;
+    mainGameMechsRef = thisGMRef; //reference to game mechanics object
+    foodPtr = foodRef; //reference to food object
+    myDir = STOP; //keep player stopped at initial state
 
-    // more actions to be included
-    playerPosListPtr = new objPosArrayList();
-    new_head.pos->x = 4;
-    new_head.pos-> y = 6;
+    playerPosListPtr = new objPosArrayList(); //keeps track of player's position 
+    new_head.pos->x = 4; //initial x coordinate
+    new_head.pos-> y = 6; //initial y coordinate
     new_head.symbol = '*';  
     playerPosListPtr->insertHead(new_head);
-    
-
     
 }
 
 
 Player::~Player()
 {
-    // delete any heap members here
-    delete playerPosListPtr;
+    delete playerPosListPtr; //free memory for the position list
 }
 
 objPosArrayList* Player::getPlayerPos() const
 {
-    // return the reference to the playerPos arrray list
-    return playerPosListPtr;
+    return playerPosListPtr; // returns the reference to the playerPos arrray list
 }
 
 void Player::updatePlayerDir()
 {
-        // PPA3 input processing logic
+        // PPA3 input processing logic, self explanatory
         char input = mainGameMechsRef->getInput();
 
         if(input != 0 || input != 'w' || input != 'a' || input != 's' || input != 'd')  // if not null character
@@ -64,13 +59,12 @@ void Player::updatePlayerDir()
                 }
                 break;  
         }
-    }
-    //mainGameMechsRef->clearInput();        
+    }        
 }
 
 void Player::movePlayer()
 {
-    // PPA3 Finite State Machine logic
+    // PPA3 Finite State Machine logic, self explanatory
     new_head.setObjPos(playerPosListPtr->getHeadElement());
     new_head.symbol = '*';
     
@@ -126,39 +120,37 @@ void Player::movePlayer()
 
 // More methods to be added
 
-//Debugging purposes
 objPos Player::getnew_head() const {
     return new_head;
-
 }
 
 bool Player::checkFoodCollision() {
 
-    objPos* tempFoodPos= new objPos;
-    tempFoodPos->setObjPos((foodPtr->getFoodPos()));
+    objPos* tempFoodPos= new objPos; //temp objPos pointer to store food position
+    tempFoodPos->setObjPos((foodPtr->getFoodPos())); //set temp position of player to match food position
 
-    if (playerPosListPtr->getHeadElement().isPosEqual(tempFoodPos)) {
-        delete tempFoodPos;
-        return true;
+    if (playerPosListPtr->getHeadElement().isPosEqual(tempFoodPos)) { //if head matches food position
+        delete tempFoodPos; //clean temporary position memory
+        return true; 
     }
 
     else {
-        delete tempFoodPos;
+        delete tempFoodPos; //clean temporary position memory
         return false;
     }
 }
 
 void Player::increasePlayerLength() {
-    playerPosListPtr->insertHead(new_head);
-    foodPtr->generateFood(playerPosListPtr);
+    playerPosListPtr->insertHead(new_head); //add new head 
+    foodPtr->generateFood(playerPosListPtr); //generate new food position
     mainGameMechsRef->incrementScore();
 }
 
 bool Player::checkSelfCollision() {
-    objPos tempPos;
-    for (int i = 1; i < playerPosListPtr->getSize(); i++) {
-        tempPos = playerPosListPtr->getElement(i);
-        if (playerPosListPtr->getHeadElement().isPosEqual(&tempPos)) {
+    objPos tempPos; //temp variable to hold segment's position
+    for (int i = 1; i < playerPosListPtr->getSize(); i++) { //checking head against rest of body
+        tempPos = playerPosListPtr->getElement(i); 
+        if (playerPosListPtr->getHeadElement().isPosEqual(&tempPos)) { //check if head matches position of a body segment
             return true;
         }
     }

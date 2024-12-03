@@ -2,7 +2,7 @@
 #include "MacUILib.h"
 
 
-GameMechs::GameMechs()
+GameMechs::GameMechs() //constructor for game mechanics
 {
     input = 0;
     exitFlag = false;
@@ -12,16 +12,15 @@ GameMechs::GameMechs()
     boardSizeY = 10;
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY) //copy constructor
 {
-    boardSizeX = boardX;
+    boardSizeX = boardX; 
     boardSizeY = boardY;
 }
 
-// do you need a destructor?
-GameMechs::~GameMechs()
+GameMechs::~GameMechs() //destructor
 {
-    //not right now since no heap member
+    //not needed since no dynamic memory
 }
 
 bool GameMechs::getExitFlagStatus() const
