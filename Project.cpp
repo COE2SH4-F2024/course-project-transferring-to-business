@@ -115,7 +115,7 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
-    MacUILib_printf("NUMBER OF SEGMENTS PRINTED: %d\n", k);
+    MacUILib_printf("SCORE: %d\n", mechPtr->getScore());
 }
 
 
