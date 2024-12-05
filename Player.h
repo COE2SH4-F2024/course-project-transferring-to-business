@@ -10,38 +10,30 @@ class Food;
 
 class Player
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
-    
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
         
-        Player(GameMechs* thisGMRef, Food* foodRef);
-        ~Player();
+        Player(GameMechs* thisGMRef, Food* foodRef); //default constructor
+        ~Player(); //destructor
 
-        objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
-        objPos getnew_head() const;
-        void updatePlayerDir();
-        void movePlayer();
+        objPosArrayList* getPlayerPos() const; //player position getter 
+        objPos getnew_head() const; //current head position getter
+        void updatePlayerDir(); //updates player direction
+        void movePlayer(); //moves player based on direction
 
         // More methods to be added here
-        bool checkFoodCollision();
-        void increasePlayerLength();
-        bool checkSelfCollision();
+        bool checkFoodCollision(); //collision with food detection
+        void increasePlayerLength(); 
+        bool checkSelfCollision(); //collision with self detection
 
 
     private:
-        objPosArrayList *playerPosListPtr; // Upgrade this in iteration 3.       
-        objPos new_head;
-        enum Dir myDir;
+        objPosArrayList *playerPosListPtr; //pointer to list of positions of player's body
+        objPos new_head; //current position of player's head
+        enum Dir myDir; //player's current direction
 
-        // Need a reference to the Main Game Mechanisms
-        GameMechs* mainGameMechsRef;
-        Food* foodPtr;
+        GameMechs* mainGameMechsRef; //reference to main game mechanics
+        Food* foodPtr; //reference to food object
 };
 
 #endif

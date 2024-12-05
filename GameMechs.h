@@ -20,9 +20,9 @@ class GameMechs
         int boardSizeY;
 
     public:
-        GameMechs();
-        GameMechs(int boardX, int boardY);
-        ~GameMechs(); // is this one needed at all? Why or why not?
+        GameMechs(); //default constructor
+        GameMechs(int boardX, int boardY); //copy constructor
+        ~GameMechs(); // not needed but good for practice
         
         bool getExitFlagStatus() const; 
         void setExitTrue();

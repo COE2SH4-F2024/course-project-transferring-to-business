@@ -8,13 +8,13 @@
 class objPosArrayList
 {
     private:
-        objPos* aList;
-        int listSize;
-        int arrayCapacity;
+        objPos* aList; //pointer to dynamically allocated array of objPos objects
+        int listSize; 
+        int arrayCapacity; 
 
     public:
-        objPosArrayList();
-        ~objPosArrayList();
+        objPosArrayList(); //constructor
+        ~objPosArrayList(); //deconstructor
 
         int getSize() const;
         void insertHead(objPos thisPos);
@@ -22,7 +22,7 @@ class objPosArrayList
         void removeHead();
         void removeTail();
         
-        objPos getHeadElement() const;
+        objPos getHeadElement() const; 
         objPos getTailElement() const;
         objPos getElement(int index) const;
 };
